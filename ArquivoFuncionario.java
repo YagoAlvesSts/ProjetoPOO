@@ -5,8 +5,12 @@
  */
 package projeto_poo;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -18,7 +22,7 @@ public class ArquivoFuncionario extends Arquivo{
         f = new File(url);
         if(!f.exists()){
             f.createNewFile();
-            addFuncionario("ROOT", "admroot", "0", "Admin", "19", "48382166881", "Rua Ana Rosa de Jesus, nº 64", "M", "5200.00", "Ativo", "3");
+            addFuncionario("ROOT", "admroot", "0", "Admin", "19", "48382166881", "Rua Ana Rosa de Jesus, nº 64", "M", "5200.00", "1", "3");
         }
     }
     
@@ -457,6 +461,336 @@ public String[] getFuncionarioByCpf(String cpf) throws IOException{
         }
         fechar();
         return res;
+    }
+    
+     public void editarSituacao(int code) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[9]=String.valueOf(0);
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+     
+     public void editarNome(int code,String novoNome) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[0]=novoNome;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarSenha(int code,String novaSenha) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[1]=novaSenha;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarFuncao(int code,String novaFuncao) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[3]=novaFuncao;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarIdade(int code,String novaIdade) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[4]=novaIdade;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarCpf(int code,String novoCpf) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[5]=novoCpf;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarEndereco(int code,String novoEndereco) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[6]=novoEndereco;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarSexo(int code,String novoSexo) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[7]=novoSexo;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarSalario(int code,String novoSalario) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[8]=novoSalario;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
+    }
+    
+    public void editarNivel(int code,String novoNivel) throws IOException{
+        abrir();
+        File temp = new File(f.getAbsolutePath()+".temp");
+        BufferedWriter tempbw = new BufferedWriter(new FileWriter(temp, true));
+        String s;
+        
+        while((s = br.readLine())!=null){
+            String[] dados = s.split(";");
+            if(Integer.parseInt(dados[2])==code)
+                dados[10]=novoNivel;
+            String linha="";
+            for (String dado : dados) {
+                linha = linha + dado + ";";
+            }
+            tempbw.write(linha);
+            tempbw.newLine();
+            tempbw.flush();
+        }
+        deletar();
+        f.createNewFile();
+        abrir();
+        BufferedReader tempr = new BufferedReader(new FileReader(temp));
+        while((s = tempr.readLine())!=null){
+            bw.write(s);
+            bw.newLine();
+            bw.flush();
+        }
+        tempr.close();
+        tempbw.close();
+        temp.delete();
+        fechar();
     }
     
     //Adicionar construindo a string

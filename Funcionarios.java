@@ -48,12 +48,17 @@ public class Funcionarios {
         /*LER DADOS DO ARQUIVO*/
         int code = arqfunc.getCodeByNome(Nome);
         
+        try{
         if((Integer.parseInt(arqfunc.getSitByCode(code)) == 1) && (arqfunc.getNomeByNome(Nome).equalsIgnoreCase(Nome))){
+            //System.out.println(arqfunc.getFuncionarioByNome(Nome));
             return arqfunc.getFuncionarioByNome(Nome);
-        } else{
-            return null;
+            
+        } 
+        } catch (java.lang.NullPointerException exception){
+            System.out.println("Nome não encontrado em registros!" + exception);
+            //return null;
         }
-        
+        return null;
     }
     
     public String[] consultarFuncCPF(String CPF) throws IOException{
@@ -78,56 +83,58 @@ public class Funcionarios {
         }
     }
     
-    public void excluirFuncNome( String Nome) throws IOException{
+    public boolean excluirFuncNome( String Nome) throws IOException{
         int code = arqfunc.getCodeByNome(Nome); // recebe do arquivo o código
         
         if((Integer.parseInt(arqfunc.getSitByCode(code))== 1) && (arqfunc.getNomeByNome(Nome).equalsIgnoreCase(Nome))){
-            this.setSit(0); //Funcionário demitido/desativado.
+            arqfunc.editarSituacao(code); //Funcionário demitido/desativado.
+            return true;
             /*ESCREVE NOVA SITUAÇÃO EM ARQUIVO*/
+        } else{
+            return false;
         }
     }
     
-    public void excluirFuncCPF( String CPF){
-        /*LER DADOS DO ARQUIVO*/
-        if ((this.sit == 1) && (this.getCpf().equalsIgnoreCase(CPF))){
-            this.setSit(0); //Funcionário demitido/desativado.
+    public boolean excluirFuncCPF( String CPF) throws IOException{
+        String name = arqfunc.getNomeByCpf(CPF); //pega o nome pelo CPF
+        int code = arqfunc.getCodeByNome(name); // Pega o código pelo nome
+        
+        /*Verifica e retorna dados do funcionário daquele respectivo código*/
+        if((Integer.parseInt(arqfunc.getSitByCode(code)) == 1) && (arqfunc.getNomeByCode(code).equalsIgnoreCase(name))){
+            arqfunc.editarSituacao(cod); //Funcionário demitido/desativado.
+           return true;
             /*ESCREVE NOVA SITUAÇÃO EM ARQUIVO*/
+        } else{
+            return false;
         }
     }
     
     
     
-    public void excluirFuncCod( int Cod){
+    public boolean excluirFuncCod( int Cod) throws IOException{
         /*LER DADOS DO ARQUIVO*/
         if ((this.sit == 1) && (this.cod == Cod)){
-            this.setSit(0); //Funcionário demitido/desativado.
-            /*ESCREVE NOVA SITUAÇÃO EM ARQUIVO*/
+            arqfunc.editarSituacao(cod); //Funcionário demitido/desativado.
+            return true;/*ESCREVE NOVA SITUAÇÃO EM ARQUIVO*/
+        } else{
+            return false;
         }
         
     }
     
-    public void alterarFuncCod(int Cod,String Nome,String Senha, String Funcao, int Idade, String CPF, String End, String Sexo, float Salario, int Nivel) throws IOException{
-        /*LER DADOS DO ARQUIVO*/
-        int code = arqfunc.getCodeByCode(Cod); // recebe do arquivo o código
+    public void alterarDados(String NovoNome,String NovaSenha,int Cod, String NovaFuncao, int NovaIdade, String NovoCPF,String NovoEnd, String NovoSexo, float NovoSalario, int NovoNivel) throws IOException{
+        /*ALTERAR DADOS DO ARQUIVO*/
         
-        if((Integer.parseInt(arqfunc.getSitByCode(code))== 1) && (Cod == code)){
-            this.setSit(1); 
-            this.setNome1(Nome);
-            this.setSenha(Senha);
-            this.setFuncao(Funcao);
-            this.setIdade(Idade);
-            this.setCpf(CPF);
-            this.setEnd(End);
-            this.setSexo(Sexo);
-            this.setSalario(Salario);
-            this.setNivel(Nivel);
-            
-            
-            arqfunc.addFuncionario(this.nome, this.senha , String.valueOf(arqfunc.getNextCod()), this.funcao, String.valueOf(this.idade), this.cpf, this.end, this.sexo, String.valueOf(this.salario), String.valueOf(this.sit), String.valueOf(this.nivel));
-            
-        } 
-        
-        
+            arqfunc.editarNome(Cod, NovoNome);
+            arqfunc.editarSenha(Cod, NovaSenha);
+            arqfunc.editarFuncao(Cod, NovaFuncao);
+            arqfunc.editarIdade(Cod, String.valueOf(NovaIdade));
+            arqfunc.editarCpf(Cod, NovoCPF);
+            arqfunc.editarEndereco(Cod, NovoEnd);
+            arqfunc.editarFuncao(Cod, NovaFuncao);
+            arqfunc.editarNivel(Cod, String.valueOf(NovoNivel));
+            arqfunc.editarSalario(Cod, String.valueOf(NovoSalario));
+            arqfunc.editarSexo(Cod, NovoSexo); 
         
     }
     
@@ -259,6 +266,11 @@ public class Funcionarios {
 
     public void setCod(int cod) {
         this.cod = cod;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionarios{" + "nome=" + nome + ", senha=" + senha + ", cod=" + cod + ", funcao=" + funcao + ", idade=" + idade + ", cpf=" + cpf + ", end=" + end + ", sexo=" + sexo + ", salario=" + salario + ", sit=" + sit + ", nivel=" + nivel +  '}';
     }
     
     

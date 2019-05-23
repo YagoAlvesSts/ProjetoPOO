@@ -41,4 +41,18 @@ public class Arquivo {
         br.close();
         fr.close();
     }
+    
+    public void deletar() throws IOException{
+        try {
+            boolean apagado=false;
+            fechar();
+            while(!apagado){
+                apagado = f.delete();
+                System.gc();
+           }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        f.delete();
+    }
 }
