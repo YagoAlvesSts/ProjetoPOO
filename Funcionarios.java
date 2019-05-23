@@ -138,45 +138,7 @@ public class Funcionarios {
         
     }
     
-     public void alterarFuncNome(String Nome,String Senha, String Funcao, int Idade, String CPF, String End, String Sexo, float Salario, int Nivel) throws IOException{
-        int code = arqfunc.getCodeByNome(Nome);
-        
-        if((Integer.parseInt(arqfunc.getSitByCode(code)) == 1) && (arqfunc.getNomeByNome(Nome).equalsIgnoreCase(Nome))){
-           this.setNome1(Nome);
-           this.setSit(1);
-           this.setSenha(Senha);
-            this.setFuncao(Funcao);
-            this.setIdade(Idade);
-            this.setCpf(CPF);
-            this.setEnd(End);
-            this.setSexo(Sexo);
-            this.setSalario(Salario);
-            this.setNivel(Nivel);
-        } 
-        /*ESCREVE NOVOS DADOS EM ARQUIVO*/
-        arqfunc.addFuncionario(this.nome, this.senha , String.valueOf(arqfunc.getNextCod()), this.funcao, String.valueOf(this.idade), this.cpf, this.end, this.sexo, String.valueOf(this.salario), String.valueOf(this.sit), String.valueOf(this.nivel));
-    }
-     
-      public void alterarFuncCpf(String Nome,String Senha, String Funcao, int Idade, String CPF, String End, String Sexo, float Salario, int Nivel) throws IOException{
-        String name = arqfunc.getNomeByCpf(CPF); //pega o nome pelo CPF
-        int code = arqfunc.getCodeByNome(name); // Pega o código pelo nome
-        
-        /*Verifica e retorna dados do funcionário daquele respectivo código*/
-        if((Integer.parseInt(arqfunc.getSitByCode(code)) == 1) && (arqfunc.getNomeByCode(code).equalsIgnoreCase(name))){
-           this.setNome1(Nome);
-           this.setSit(1);
-           this.setSenha(Senha);
-            this.setFuncao(Funcao);
-            this.setIdade(Idade);
-            this.setCpf(CPF);
-            this.setEnd(End);
-            this.setSexo(Sexo);
-            this.setSalario(Salario);
-            this.setNivel(Nivel);
-        } 
-        /*ESCREVE NOVOS DADOS EM ARQUIVO*/
-        arqfunc.addFuncionario(this.nome, this.senha , String.valueOf(arqfunc.getNextCod()), this.funcao, String.valueOf(this.idade), this.cpf, this.end, this.sexo, String.valueOf(this.salario), String.valueOf(this.sit), String.valueOf(this.nivel));
-    }
+    
     
     
     public String getNome1() {
